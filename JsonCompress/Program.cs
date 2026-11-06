@@ -1,10 +1,23 @@
-﻿using System.Text.Json;
+using System.Text.Json;
 using System.Text.Json.Serialization;
 using SkiaSharp;
 
-string dir = args.Length > 0 ? args[0] : "../../../../RhythmBase.View/Assets/";
-string jsonpath = dir + "assets.json";
-string outputpath = dir + "assets";
+string assetsDirectory;
+try
+{
+	assetsDirectory = ResolveAssetsDirectory(args.Length > 0 ? args[0] : null);
+}
+catch (Exception exception)
+{
+	Console.Error.WriteLine(exception.Message);
+	Environment.ExitCode = 2;
+	return;
+}
+
+string jsonpath = Path.Combine(assetsDirectory, "assets.json");
+string outputpath = Path.Combine(assetsDirectory, "assets");
+Console.WriteLine($"Reading {jsonpath}");
+Console.WriteLine($"Writing {outputpath}");
 Dictionary<string, SliceInfo> value;
 using (FileStream fs = new(jsonpath, FileMode.Open, FileAccess.Read))
 {
@@ -35,6 +48,45 @@ using (FileStream fs3 = new(outputpath, FileMode.Open, FileAccess.Read))
 }
 
 
+
+static string ResolveAssetsDirectory(string? argument)
+{
+	if (!string.IsNullOrWhiteSpace(argument))
+	{
+		string fullPath = Path.GetFullPath(argument);
+		if (File.Exists(fullPath) && fullPath.EndsWith(".json", StringComparison.OrdinalIgnoreCase))
+			fullPath = Path.GetDirectoryName(fullPath)!;
+
+		string[] candidates =
+		[
+			fullPath,
+			Path.Combine(fullPath, "Assets"),
+			Path.Combine(fullPath, "shared", "Assets"),
+			Path.Combine(fullPath, "RhythmBase.RhythmDoctor.View", "Assets"),
+		];
+		foreach (string candidate in candidates)
+		{
+			if (File.Exists(Path.Combine(candidate, "assets.json")))
+				return candidate;
+		}
+		throw new FileNotFoundException(
+			$"assets.json was not found under '{Path.GetFullPath(argument)}'. Pass the Assets directory or the repository root.");
+	}
+
+	for (DirectoryInfo? directory = new(AppContext.BaseDirectory); directory is not null; directory = directory.Parent)
+	{
+		string candidate = Path.Combine(directory.FullName, "shared", "Assets");
+		if (File.Exists(Path.Combine(candidate, "assets.json")))
+			return candidate;
+	}
+
+	string workingDirectoryCandidate = Path.Combine(Directory.GetCurrentDirectory(), "shared", "Assets");
+	if (File.Exists(Path.Combine(workingDirectoryCandidate, "assets.json")))
+		return workingDirectoryCandidate;
+
+	throw new FileNotFoundException(
+		"assets.json was not found. Run this tool from the repository root or pass the Assets directory as the first argument.");
+}
 
 static void SaveToStream(Stream stream, Dictionary<string, SliceInfo> data)
 {

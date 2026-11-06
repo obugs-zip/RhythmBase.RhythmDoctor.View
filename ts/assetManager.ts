@@ -1,4 +1,4 @@
-import { Point, Rect, Size, SliceInfo } from "./definition";
+import { Point, Rect, Size, SliceInfo } from "./definition.ts";
 
 const assetFilePath: string = "assets.png";
 const slicesFilePath: string = "assets";

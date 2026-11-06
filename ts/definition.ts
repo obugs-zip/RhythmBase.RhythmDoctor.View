@@ -229,7 +229,7 @@ const EventInfos: Record<EventType, EventInfo> = {
   ),
   FadeRoom: new EventInfo(
     Tab.Rooms,
-    EventAttriblte.DurationEvent,
+    EventAttriblte.DurationEvent | EventAttriblte.RoomEvent,
     "duration",
   ),
   FinishLevel: new EventInfo(Tab.Actions),
@@ -248,7 +248,7 @@ const EventInfos: Record<EventType, EventInfo> = {
   HideWindow: new EventInfo(Tab.Windows),
   InvertColors: new EventInfo(Tab.Actions, EventAttriblte.RoomEvent),
   LinkRows: new EventInfo(Tab.Actions),
-  MaskRoom: new EventInfo(Tab.Rooms),
+  MaskRoom: new EventInfo(Tab.Rooms, EventAttriblte.RoomEvent),
   Move: new EventInfo(
     Tab.Decorations,
     EventAttriblte.DurationEvent,
@@ -261,7 +261,7 @@ const EventInfos: Record<EventType, EventInfo> = {
   ),
   MoveRoom: new EventInfo(
     Tab.Rooms,
-    EventAttriblte.DurationEvent,
+    EventAttriblte.DurationEvent | EventAttriblte.RoomEvent,
     "duration",
   ),
   MoveRow: new EventInfo(
@@ -316,10 +316,10 @@ const EventInfos: Record<EventType, EventInfo> = {
   SetMainWindow: new EventInfo(Tab.Windows),
   SetOneshotWave: new EventInfo(Tab.Rows),
   SetPlayStyle: new EventInfo(Tab.Actions),
-  SetRoomContentMode: new EventInfo(Tab.Rooms),
+  SetRoomContentMode: new EventInfo(Tab.Rooms, EventAttriblte.RoomEvent),
   SetRoomPerspective: new EventInfo(
     Tab.Rooms,
-    EventAttriblte.DurationEvent,
+    EventAttriblte.DurationEvent | EventAttriblte.RoomEvent,
     "duration",
   ),
   SetRowXs: new EventInfo(Tab.Rows),

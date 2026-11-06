@@ -12,7 +12,7 @@
 { "bar": 1, "beat": 7, "y": 0, "type": "AddClassicBeat", "tag": "1", "tick": 0.5, "hold": 1, "swing": 0.5, "setXs": "NoChange" },
 { "bar": 1, "beat": 7, "y": 6, "type": "AddOneshotBeat", "pulseType": "Wave", "freezeBurnMode": "Freezeshot", "interval": 2, "tick": 1, "delay": 0.5, "skipshot": true },
 { "bar": 1, "beat": 8, "y": 1, "type": "SetVisible", "visible": true },
-{ "bar": 1, "beat": 8, "y": 2, "type": "ShowStatusSign", "if": "1d0", "text": "RhythmBase.View!", "duration": 5, "useBeats": true, "narrate": true },
+{ "bar": 1, "beat": 8, "y": 2, "type": "ShowStatusSign", "if": "1d0", "text": "RhythmBase.RhythmDoctor.View!", "duration": 5, "useBeats": true, "narrate": true },
 { "bar": 1, "beat": 8, "y": 3, "type": "Tint", "border": "Glow", "borderColor": "FF0000FF", "tint": true, "tintColor": "001BFFFF", "opacity": 100, "duration": 3, "ease": "Linear" },
 { "bar": 1, "beat": 8, "y": 4, "type": "SetCountingSound", "voiceSource": "JyiCount", "enabled": true, "volume": 100, "subdivOffset": 0.5 },
 { "bar": 1, "beat": 8, "y": 5, "type": "TextExplosion", "rooms": [0], "text": "Explosion", "color": "000000", "mode": "OneColor", "direction": "Left", "speed": 100, "ease": "Linear" },

@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "strict": false
+  },
+  "tasks": {
+    "web:check": "deno check web/script.ts web/harness.ts",
+    "web:build": "deno run -A web/build.deno.ts",
+    "web:serve": "deno run -A jsr:@std/http/file-server web/dist --port 8000",
+    "pkg:build": "deno run -A scripts/build_npm.ts",
+    "pkg:publish": "deno task pkg:build && npm publish ./scripts/npm"
+  }
+}

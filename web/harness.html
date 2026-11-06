@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>RhythmBase.RhythmDoctor.View Parity Harness</title>
+        <link rel="stylesheet" href="./style.css" />
+        <style>
+            html,
+            body {
+                margin: 0;
+                padding: 0;
+                background: #2c2c2c;
+                overflow: hidden;
+            }
+            * {
+                transition: none !important;
+                animation: none !important;
+            }
+            #harness-root {
+                position: absolute;
+                left: 0;
+                top: 0;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="harness-root"></div>
+        <script type="module" src="./harness.js"></script>
+    </body>
+</html>

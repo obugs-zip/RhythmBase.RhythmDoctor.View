@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>RhythmBase View</title>
+        <link rel="stylesheet" href="./style.css">
+    </head>
+    <body>
+        <h1>Welcome to RhythmBase View</h1>
+        <p>This is a simple viewer for RhythmBase JSON data.</p>
+        <p>Double click on an event icon to highlight its JSON code.</p>
+        <p>Select an event type and press <b>Add Event</b> to insert a fully populated sample
+            with randomized parameters (except <code>$style.hsb</code>), then edit it in the text area.</p>
+        <p>Some event types has extra fields:</p>
+        <code>
+            "type": "AddClassicBeat", ..., "preXs": { "syncoBeat":3, "syncoSwing":0.5 }, ...<br>
+            "type": "AdvanceText", ..., "text": "Extra text field supported by RDView", ...<br>
+            ..., "$style": { "hsb": [0, 1, 1] }, ...
+        </code></p>
+    </body>
+    <script type="module" src="./script.js"></script>
+</html>

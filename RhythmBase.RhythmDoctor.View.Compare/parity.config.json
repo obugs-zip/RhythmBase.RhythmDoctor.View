@@ -1,0 +1,8 @@
+{
+  "channelDelta": 24,
+  "significantPixelRatio": 0.005,
+  "meanAbsoluteError": 2.0,
+  "backgroundColor": "#2C2C2C",
+  "borderSamplePixels": 2,
+  "overrides": {}
+}

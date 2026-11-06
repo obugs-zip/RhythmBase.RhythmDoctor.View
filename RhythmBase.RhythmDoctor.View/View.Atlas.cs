@@ -1,18 +1,18 @@
-﻿using RhythmBase.Global.Components;
+using RhythmBase.Global.Components;
 using RhythmBase.Global.Components.Vector;
 using RhythmBase.Global.Events;
 using RhythmBase.RhythmDoctor;
 using RhythmBase.RhythmDoctor.Components;
 using RhythmBase.RhythmDoctor.Events;
 using RhythmBase.RhythmDoctor.Extensions;
-using RhythmBase.View.Assets;
+using RhythmBase.RhythmDoctor.View.Assets;
 using SkiaSharp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace RhythmBase.View;
+namespace RhythmBase.RhythmDoctor.View;
 
 public static partial class View
 {
@@ -110,7 +110,7 @@ public static partial class View
 		string key = $"event_{evt.Type}";
 		if (!AssetManager._slices.ContainsKey(key))
 			key = "event_Unknown";
-		if (!AssetManager._slices.TryGetValue(key, out SliceInfo info))
+		if (!AssetManager._slices.TryGetValue(key, out SliceInfo? info))
 			return plan;
 		float w = info.Bounds.Width;
 		float h = info.Bounds.Height;
@@ -214,7 +214,7 @@ public static partial class View
 				continue;
 			}
 			string glyph = $"char_{(int)c:x4}";
-			if (!AssetManager._slices.TryGetValue(glyph, out SliceInfo info))
+			if (!AssetManager._slices.TryGetValue(glyph, out SliceInfo? info))
 				continue;
 			float devScale = scale * textScale;
 			int tile = batch.SpriteScaled(glyph, devScale, color);
@@ -225,7 +225,7 @@ public static partial class View
 
 	private static void AddRectImage(IconBatch batch, EventPlan plan, string slice, float x, float y, float w, float h, int scale, SKColor? tint)
 	{
-		if (!AssetManager._slices.TryGetValue(slice, out SliceInfo info))
+		if (!AssetManager._slices.TryGetValue(slice, out SliceInfo? info))
 			return;
 		int pw = Math.Max(1, (int)Math.Ceiling((double)w * scale));
 		int ph = Math.Max(1, (int)Math.Ceiling((double)h * scale));
@@ -238,7 +238,7 @@ public static partial class View
 		EventPlan plan = new();
 		int S = style.Scale;
 		string key = $"event_{evt.Type}";
-		if (!AssetManager._slices.TryGetValue(key, out SliceInfo info))
+		if (!AssetManager._slices.TryGetValue(key, out SliceInfo? info))
 			return plan;
 		float w = info.Bounds.Width;
 		float h = info.Bounds.Height;
@@ -262,7 +262,7 @@ public static partial class View
 		EventPlan plan = new();
 		int S = style.Scale;
 		string key = $"event_{evt.Type}";
-		if (!AssetManager._slices.TryGetValue(key, out SliceInfo info))
+		if (!AssetManager._slices.TryGetValue(key, out SliceInfo? info))
 			return plan;
 		float w = info.Bounds.Width;
 		float h = info.Bounds.Height;
@@ -278,7 +278,7 @@ public static partial class View
 			PulseAction.Remove => "x",
 			PulseAction.Custom or _ => (evt.CustomPulse + 1).ToString(),
 		}, 1.5f, 8, S, 1, SKColors.White);
-		if (evt is { Action: PulseAction.Custom, CustomPulse: 7 })
+		if (evt is { Action: PulseAction.Custom, CustomPulse: 6 })
 			AddRectImage(batch, plan, "event_beat_hit", -2, 0, 5, h, S, null);
 		if (hold > 0)
 			AddBandSegments(batch, plan, "event_beat_area", w, 0, iconSize * hold, h, style.Active ? 0xffd046f3 : 0xff7e3990, S);
@@ -292,7 +292,7 @@ public static partial class View
 		EventPlan plan = new();
 		int S = style.Scale;
 		string key = $"event_{evt.Type}";
-		if (!AssetManager._slices.TryGetValue(key, out SliceInfo info))
+		if (!AssetManager._slices.TryGetValue(key, out SliceInfo? info))
 			return plan;
 		float w = info.Bounds.Width;
 		float h = info.Bounds.Height;
@@ -300,7 +300,7 @@ public static partial class View
 		plan.ContentWidth = w;
 		int back = batch.Back(0, 0, w, h, ColorOf(evt.Tab), style.Active, style.Enabled, S);
 		AddRectLayer(batch, plan, back, 0, 0, S);
-		if (!AssetManager._slices.TryGetValue("event_beat_x", out SliceInfo beatx))
+		if (!AssetManager._slices.TryGetValue("event_beat_x", out SliceInfo? beatx))
 			return plan;
 		float width = w / 6f;
 		float s = width / beatx.Bounds.Width;
@@ -340,7 +340,7 @@ public static partial class View
 		EventPlan plan = new();
 		int S = style.Scale;
 		string key = $"event_{evt.Type}";
-		if (!AssetManager._slices.TryGetValue(key, out SliceInfo info))
+		if (!AssetManager._slices.TryGetValue(key, out SliceInfo? info))
 			return plan;
 		float w = info.Bounds.Width;
 		float h = info.Bounds.Height;
@@ -378,7 +378,7 @@ public static partial class View
 		EventPlan plan = new();
 		int S = style.Scale;
 		string key = $"event_{evt.Type}";
-		if (!AssetManager._slices.TryGetValue(key, out SliceInfo info))
+		if (!AssetManager._slices.TryGetValue(key, out SliceInfo? info))
 			return plan;
 		float w = info.Bounds.Width;
 		float h = info.Bounds.Height;
@@ -615,7 +615,7 @@ public static partial class View
 
 	private static void AddMarkScaled(IconBatch batch, EventPlan plan, string slice, float pointX, float pointY, float scale, float scaleParam, SKColor? tint)
 	{
-		if (!AssetManager._slices.TryGetValue(slice, out SliceInfo info))
+		if (!AssetManager._slices.TryGetValue(slice, out SliceInfo? info))
 			return;
 		float devScale = scale * scaleParam;
 		int tile = batch.SpriteScaled(slice, devScale, tint);
@@ -650,7 +650,7 @@ public static partial class View
 				transforms[i] = new SKRotationScaleMatrix(1, 0, sprite.X, sprite.Y);
 			}
 			using SKPaint paint = new();
-			canvas.DrawAtlas(batch.PageImage(page), srcs, transforms, paint);
+			canvas.DrawAtlas(batch.PageImage(page), srcs, transforms, SKSamplingOptions.Default, paint);
 			start = end;
 		}
 		pending.Clear();
@@ -682,7 +682,7 @@ public static partial class View
 
 		public int SpriteScaled(string slice, float devScale, SKColor? tint)
 		{
-			if (!AssetManager._slices.TryGetValue(slice, out SliceInfo info))
+			if (!AssetManager._slices.TryGetValue(slice, out SliceInfo? info))
 				return -1;
 			int pw = Math.Max(1, (int)Math.Ceiling((double)info.Bounds.Width * devScale));
 			int ph = Math.Max(1, (int)Math.Ceiling((double)info.Bounds.Height * devScale));
@@ -700,16 +700,16 @@ public static partial class View
 					{
 						ColorFilter = CreateFilter(color),
 					};
-					c.DrawImage(AssetManager._assetFile, info.Bounds, new SKRect(0, 0, pw, ph), paint);
+					c.DrawImage(AssetManager._assetFile, info.Bounds, new SKRect(0, 0, pw, ph), SKSamplingOptions.Default, paint);
 				});
 			else
-				image = Raster(pw, ph, c => c.DrawImage(AssetManager._assetFile, info.Bounds, new SKRect(0, 0, pw, ph)));
+				image = Raster(pw, ph, c => c.DrawImage(AssetManager._assetFile, info.Bounds, new SKRect(0, 0, pw, ph), SKSamplingOptions.Default, null));
 			return GetOrAdd(_sliceIds, key, image);
 		}
 
 		public int RectImage(string slice, int pw, int ph, SKColor? tint)
 		{
-			if (!AssetManager._slices.TryGetValue(slice, out SliceInfo info))
+			if (!AssetManager._slices.TryGetValue(slice, out SliceInfo? info))
 				return -1;
 			SliceKey key = new(slice, pw, ph, tint);
 			lock (_sync)
@@ -725,10 +725,10 @@ public static partial class View
 					{
 						ColorFilter = CreateFilter(color),
 					};
-					c.DrawImage(AssetManager._assetFile, info.Bounds, new SKRect(0, 0, pw, ph), paint);
+					c.DrawImage(AssetManager._assetFile, info.Bounds, new SKRect(0, 0, pw, ph), SKSamplingOptions.Default, paint);
 				});
 			else
-				image = Raster(pw, ph, c => c.DrawImage(AssetManager._assetFile, info.Bounds, new SKRect(0, 0, pw, ph)));
+				image = Raster(pw, ph, c => c.DrawImage(AssetManager._assetFile, info.Bounds, new SKRect(0, 0, pw, ph), SKSamplingOptions.Default, null));
 			return GetOrAdd(_sliceIds, key, image);
 		}
 
@@ -756,7 +756,7 @@ public static partial class View
 
 		public int Band(string slice, float x, float y, float w, float h, SKColor color, int scale)
 		{
-			if (!AssetManager._slices.TryGetValue(slice, out SliceInfo info))
+			if (!AssetManager._slices.TryGetValue(slice, out SliceInfo? info))
 				return -1;
 			int pw = (int)Math.Ceiling((double)w * scale);
 			int ph = (int)Math.Ceiling((double)h * scale);
@@ -782,6 +782,7 @@ public static partial class View
 		public SKImage PageImage(int page) => _pages[page];
 
 		private int GetOrAdd<TKey>(Dictionary<TKey, int> map, TKey key, SKImage image)
+			where TKey : notnull
 		{
 			lock (_sync)
 			{
@@ -834,7 +835,7 @@ public static partial class View
 				if (w > PageWidth || h > PageHeight)
 				{
 					surfaces.Add(new PageSurface(w, h));
-					surfaces[surfaces.Count - 1].Canvas.DrawImage(tile, new SKRect(0, 0, w, h));
+					surfaces[surfaces.Count - 1].Canvas.DrawImage(tile, new SKRect(0, 0, w, h), SKSamplingOptions.Default, null);
 					_placements[i] = new Placement(surfaces.Count - 1, SKRectI.Create(0, 0, w, h));
 					freshPage = true;
 					continue;
@@ -860,7 +861,7 @@ public static partial class View
 					y = 0;
 					rowHeight = 0;
 				}
-				surfaces[surfaces.Count - 1].Canvas.DrawImage(tile, new SKRect(x, y, x + w, y + h));
+				surfaces[surfaces.Count - 1].Canvas.DrawImage(tile, new SKRect(x, y, x + w, y + h), SKSamplingOptions.Default, null);
 				_placements[i] = new Placement(surfaces.Count - 1, SKRectI.Create(x, y, w, h));
 				x += w;
 				rowHeight = Math.Max(rowHeight, h);

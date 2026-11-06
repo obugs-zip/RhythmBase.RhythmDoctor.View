@@ -1,4 +1,4 @@
-﻿using RhythmBase.Global.Events;
+using RhythmBase.Global.Events;
 using RhythmBase.RhythmDoctor;
 using RhythmBase.RhythmDoctor.Components;
 using RhythmBase.RhythmDoctor.Events;
@@ -11,7 +11,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Text;
 
-namespace RhythmBase.View;
+namespace RhythmBase.RhythmDoctor.View;
 
 public static class LevelViewer
 {
@@ -209,7 +209,7 @@ public static class LevelViewer
 				Color = 0xff7a7a7a,
 				Style = SKPaintStyle.Fill,
 			};
-			canvas.DrawText($"{tempo.Value} BPM", x + pixelSize, -pixelSize - 12, new SKFont(typeface), paint);
+			canvas.DrawText($"{tempo.Value} BPM", x + pixelSize, -pixelSize - 12, SKTextAlign.Left, new SKFont(typeface), paint);
 			if (index > 0 && index % 2 == 0)
 			{
 				var prevTempo = tempoList[index - 1];
@@ -249,7 +249,7 @@ public static class LevelViewer
 			};
 			if (beat == 1)
 			{
-				canvas.DrawText(bar.ToString(), x + pixelSize, -pixelSize, new SKFont(typeface), paint);
+				canvas.DrawText(bar.ToString(), x + pixelSize, -pixelSize, SKTextAlign.Left, new SKFont(typeface), paint);
 			}
 			canvas.DrawLine(x, 0, x, (currentY + 1) * pixelSize * unitSize, paint);
 		}

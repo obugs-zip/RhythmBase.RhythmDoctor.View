@@ -1,6 +1,6 @@
-﻿using SkiaSharp;
+using SkiaSharp;
 
-namespace RhythmBase.View;
+namespace RhythmBase.RhythmDoctor.View;
 
 internal record class SliceInfo()
 {

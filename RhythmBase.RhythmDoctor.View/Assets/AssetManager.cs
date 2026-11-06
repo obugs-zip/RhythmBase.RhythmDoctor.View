@@ -1,9 +1,9 @@
-﻿using System.Collections;
+using System.Collections;
 using SkiaSharp;
 using System.Text.Json;
 using System.Reflection;
 
-namespace RhythmBase.View.Assets;
+namespace RhythmBase.RhythmDoctor.View.Assets;
 
 internal static class AssetManager
 {
@@ -61,7 +61,7 @@ internal static class AssetManager
 	private static Stream GetAssemblyStream(string path)
 	{
 		Assembly assembly = Assembly.GetExecutingAssembly();
-		return assembly.GetManifestResourceStream($"RhythmBase.View.Assets.{path}")!;
+		return assembly.GetManifestResourceStream($"RhythmBase.RhythmDoctor.View.Assets.{path}")!;
 	}
 	static Dictionary<string, SliceInfo> ReadFromStream(Stream stream)
 	{
@@ -107,7 +107,7 @@ internal static class AssetManager
 	}
 	public static SKColor GetColor(SKBitmap bitmap, string src, SKPointI offset)
 	{
-		if (!_slices.TryGetValue(src, out SliceInfo info))
+		if (!_slices.TryGetValue(src, out SliceInfo? info))
 			return SKColors.Transparent;
 		SKPointI pixel = new(info.Bounds.Left + offset.X, info.Bounds.Top + offset.Y);
 		if (pixel.X < info.Bounds.Left || pixel.X >= info.Bounds.Right || pixel.Y < info.Bounds.Top || pixel.Y >= info.Bounds.Bottom)
@@ -116,7 +116,7 @@ internal static class AssetManager
 	}
 	public static SKRectI[] GetSrcRects(string srcName)
 	{
-		if (!_slices.TryGetValue(srcName, out SliceInfo info))
+		if (!_slices.TryGetValue(srcName, out SliceInfo? info))
 			return [];
 		if (info.IsNinePatch)
 		{
